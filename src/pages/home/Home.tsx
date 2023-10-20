@@ -7,6 +7,7 @@ import When from "../../components/When";
 import { ITrends, getTrends } from "../../helpers/getData";
 import TrendItem from "./TrendItem";
 import { suggestions } from "../../static/suggestions";
+import { Link } from "react-router-dom";
 
 const Home: React.FC = () => {
   const [showTrends, setShowTrends] = useState(false);
@@ -45,9 +46,11 @@ const Home: React.FC = () => {
               <ul>
                 {suggestions.map((suggestion: string) => {
                   return (
-                    <li className="text-sm text-gray-600 mb-2 cursor-pointer">
-                      {suggestion}
-                    </li>
+                    <Link to="/search">
+                      <li className="text-sm text-gray-600 mb-2 cursor-pointer">
+                        {suggestion}
+                      </li>
+                    </Link>
                   );
                 })}
               </ul>

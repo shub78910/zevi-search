@@ -1,17 +1,40 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import When from "../../components/When";
 import StarRating from "./StarsRating";
 import { IPriceRange, priceRanges, ratings } from "../../static/filters";
 import FilterTemplate from "./FilterTemplate";
 
-const SearchBoxFilters = ({ brands }: { brands: string[] }) => {
-  const [showBrandFilter, setShowBrandFilter] = useState(true);
-  const [showPriceFilter, setShowPriceFilter] = useState(true);
-  const [showRatingFilter, setShowRatingFilter] = useState(true);
+const SearchBoxFilters = ({
+  brands,
+  handleFilterChange,
+}: {
+  brands: string[];
+  handleFilterChange: ({
+    selectedBrands,
+    selectedPriceRange,
+    selectedRating,
+  }: {
+    selectedBrands: string[];
+    selectedPriceRange: string[];
+    selectedRating: string[];
+  }) => void;
+}) => {
+  const [showBrandFilter, setShowBrandFilter] = useState<boolean>(true);
+  const [showPriceFilter, setShowPriceFilter] = useState<boolean>(true);
+  const [showRatingFilter, setShowRatingFilter] = useState<boolean>(true);
 
-  const handleBrandChange = (brand: string) => {
-    console.log(brand);
-  };
+  const [selectedBrands, setSelectedBrands] = useState<string[]>([]);
+  const [selectedPriceRange, setSelectedPriceRange] = useState<string[]>([]);
+  const [selectedRating, setSelectedRating] = useState<string[]>([]);
+
+  useEffect(() => {
+    handleFilterChange({
+      selectedBrands,
+      selectedPriceRange,
+      selectedRating,
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selectedBrands, selectedPriceRange, selectedRating]);
 
   return (
     <div>
@@ -28,7 +51,18 @@ const SearchBoxFilters = ({ brands }: { brands: string[] }) => {
                     <input
                       type="checkbox"
                       onChange={(e) => {
-                        handleBrandChange(e.target.value);
+                        if (e.target.checked) {
+                          setSelectedBrands([
+                            ...selectedBrands,
+                            e.target.value,
+                          ]);
+                        } else {
+                          const index = selectedBrands.indexOf(e.target.value);
+                          if (index !== -1) {
+                            selectedBrands.splice(index, 1);
+                          }
+                          setSelectedBrands([...selectedBrands]);
+                        }
                       }}
                       value={brand}
                     />
@@ -56,7 +90,27 @@ const SearchBoxFilters = ({ brands }: { brands: string[] }) => {
                     <input
                       type="checkbox"
                       onChange={(e) => {
-                        console.log(e.target.value);
+                        console.log({
+                          selectedPriceRange,
+                          val: e.target.value,
+                        });
+
+                        if (e.target.checked) {
+                          console.log("insdie if");
+
+                          setSelectedPriceRange([
+                            ...selectedPriceRange,
+                            e.target.value,
+                          ]);
+                        } else {
+                          const index = selectedPriceRange.indexOf(
+                            e.target.value
+                          );
+                          if (index !== -1) {
+                            selectedPriceRange.splice(index, 1);
+                          }
+                          setSelectedPriceRange([...selectedPriceRange]);
+                        }
                       }}
                       value={priceRange.value}
                     />
@@ -77,13 +131,21 @@ const SearchBoxFilters = ({ brands }: { brands: string[] }) => {
           handleClick={() => setShowRatingFilter(!showRatingFilter)}
         >
           <When isTrue={showRatingFilter}>
-            {ratings.map((rating: number) => {
+            {ratings.map((rating: any) => {
               return (
-                <div className="flex gap-2">
+                <div className="flex gap-2 mt-2">
                   <input
                     type="checkbox"
                     onChange={(e) => {
-                      console.log(e.target.value);
+                      if (e.target.checked) {
+                        setSelectedRating([...selectedRating, e.target.value]);
+                      } else {
+                        const index = selectedRating.indexOf(e.target.value);
+                        if (index !== -1) {
+                          selectedRating.splice(index, 1);
+                        }
+                        setSelectedRating([...selectedRating]);
+                      }
                     }}
                     value={rating}
                   />

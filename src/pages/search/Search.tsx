@@ -4,7 +4,12 @@ import Header from "../../components/Header";
 
 import SearchBoxFilters from "./SearchBoxFilters";
 import Product from "./Product";
-import { filterBySearch } from "../../helpers/filterData";
+import {
+  filterByBrand,
+  filterByPrice,
+  filterByRating,
+  filterBySearch,
+} from "../../helpers/filterData";
 import { debounce } from "../../util/customDebounce";
 
 const Search: React.FC = () => {
@@ -26,7 +31,7 @@ const Search: React.FC = () => {
         currencyPrefix: "Rs. ",
         originalPrice: "4128.00",
         discountedPrice: "2064",
-        rating: 5,
+        rating: "5",
         noOfReviews: 826,
         isLiked: true,
         brand: "Adidas",
@@ -40,7 +45,7 @@ const Search: React.FC = () => {
         currencyPrefix: "Rs. ",
         originalPrice: "3702.00",
         discountedPrice: "1851",
-        rating: 4,
+        rating: "4",
         noOfReviews: 644,
         isLiked: false,
         brand: "H&M",
@@ -54,7 +59,7 @@ const Search: React.FC = () => {
         currencyPrefix: "Rs. ",
         originalPrice: "1794.00",
         discountedPrice: "897",
-        rating: 2,
+        rating: "2",
         noOfReviews: 478,
         isLiked: false,
         brand: "H&M",
@@ -68,7 +73,7 @@ const Search: React.FC = () => {
         currencyPrefix: "Rs. ",
         originalPrice: "1794.00",
         discountedPrice: "897",
-        rating: 2,
+        rating: "2",
         noOfReviews: 478,
         isLiked: false,
         brand: "H&M",
@@ -91,18 +96,45 @@ const Search: React.FC = () => {
     setSearchText(value);
   }, 500);
 
+  const handleFilterChange = ({
+    selectedBrands,
+    selectedPriceRange,
+    selectedRating,
+  }: {
+    selectedBrands: string[];
+    selectedPriceRange: string[];
+    selectedRating: string[];
+  }) => {
+    let results = products;
+
+    if (selectedBrands) {
+      results = filterByBrand(results, selectedBrands);
+    }
+    if (selectedPriceRange) {
+      results = filterByPrice(results, selectedPriceRange);
+    }
+    if (selectedRating) {
+      results = filterByRating(results, selectedRating);
+    }
+
+    setFilteredProducts(results);
+  };
+
   return (
     <>
       <div>
         <Header {...{ showSearchBar: true, handleChange }} />
       </div>
       <div className="flex items-start mt-8">
-        <div className="w-1/4 p-4 hidden md:block">
+        <div className="w-1/5 p-4 hidden md:block">
           <h1 className="text-3xl font-normal mb-10">Search Results</h1>
-          <SearchBoxFilters brands={brands} />
+          <SearchBoxFilters
+            brands={brands}
+            handleFilterChange={handleFilterChange}
+          />
         </div>
 
-        <div className="w-3/4 p-4 flex flex-wrap justify-evenly">
+        <div className="w-4/5 p-4 flex flex-wrap justify-evenly">
           {filteredProducts.map((product, index) => (
             <Product {...{ product, index }} />
           ))}

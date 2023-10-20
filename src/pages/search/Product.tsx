@@ -6,17 +6,27 @@ import { useState } from "react";
 
 const Product = ({ index, product }: { index: number; product: IProduct }) => {
   const [liked, setLiked] = useState<boolean>(false);
+  const [showProductLabel, setShowProductLabel] = useState<boolean>(false);
 
   return (
     <div key={index} className="w-auto p-4 relative">
-      <div className="cursor-pointer">
+      <div
+        className="cursor-pointer"
+        onMouseOut={() => setShowProductLabel(false)}
+        onMouseOver={() => setShowProductLabel(true)}
+      >
         <img
           src={product.image}
           alt={`${product.name}`}
           height={200}
-          width={200}
+          width={208}
           loading="lazy"
         />
+        <When isTrue={showProductLabel}>
+          <div className="absolute bottom-20 text-white bg-blue-600 opacity-60 text-center text-xl w-52 py-2 px-4 mb-3">
+            View Product
+          </div>
+        </When>
         <div
           className="absolute top-6 right-6"
           onClick={() => setLiked(!liked)}

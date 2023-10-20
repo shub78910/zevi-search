@@ -1,11 +1,11 @@
 import { RiStarSFill } from "react-icons/ri";
 
-const StarRating = ({ rating }: { rating: number }) => {
+const StarRating = ({ rating }: { rating: string }) => {
   const stars = Array(5)
     .fill(null)
     .map((_, index) => (
       <span key={index}>
-        {index < rating ? (
+        {index < Number(rating) ? (
           <RiStarSFill size={20} style={{ color: "gold" }} />
         ) : (
           <RiStarSFill size={20} style={{ color: "lightgrey" }} />

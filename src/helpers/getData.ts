@@ -30,7 +30,7 @@ export interface IProduct {
   currencyPrefix: string;
   originalPrice: string;
   discountedPrice: string;
-  rating: number;
+  rating: string;
   noOfReviews: number;
   isLiked: boolean;
   brand: string;
@@ -47,7 +47,7 @@ export const getProducts = (count: number) => {
     )}`;
     const originalPrice: string = faker.commerce.price(100, 5000);
     const discountedPrice: string = String(Number(originalPrice) / 2);
-    const rating: number = Math.floor(Math.random() * 6);
+    const rating: string = String(Math.floor(Math.random() * 6));
     const noOfReviews: number = Math.floor(Math.random() * 1000);
     const isLiked: boolean = false;
     const brand: string = faker.company.name();
