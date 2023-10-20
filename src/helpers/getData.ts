@@ -38,6 +38,12 @@ export interface IProduct {
 
 export const getProducts = (count: number) => {
   const productData: IProduct[] = [];
+  const brands: string[] = [];
+
+  for (let i = 0; i < 5; i++) {
+    const brand: string = faker.company.name();
+    brands.push(brand);
+  }
 
   for (let i = 0; i < count; i++) {
     const id: number = i + 1;
@@ -50,7 +56,7 @@ export const getProducts = (count: number) => {
     const rating: string = String(Math.floor(Math.random() * 6));
     const noOfReviews: number = Math.floor(Math.random() * 1000);
     const isLiked: boolean = false;
-    const brand: string = faker.company.name();
+    const brand: string = brands[Math.floor(Math.random() * 5)];
 
     productData.push({
       id,
@@ -65,10 +71,6 @@ export const getProducts = (count: number) => {
       currencyPrefix: "Rs. ",
     });
   }
-
-  const brands: string[] = [
-    ...new Set(productData.map((product) => product.brand)),
-  ];
 
   return { productData, brands };
 };

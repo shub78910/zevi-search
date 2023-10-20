@@ -2,13 +2,16 @@ import When from "./When";
 // @ts-ignore
 import ZeviLogo from "../assets/icons/zevi-logo.png";
 import SearchBar from "./SearchBar";
+import { RxHamburgerMenu } from "react-icons/rx";
 
 const Header = ({
   showSearchBar,
   handleChange,
+  handleMenuDisplay,
 }: {
   showSearchBar: boolean;
   handleChange?: (value: string) => void;
+  handleMenuDisplay?: () => void;
 }) => {
   return (
     <>
@@ -16,7 +19,10 @@ const Header = ({
         <img src={ZeviLogo} alt="zevi-logo" width={70} height={70} />
       </div>
       <When isTrue={showSearchBar}>
-        <div className="flex justify-center pt-4 px-2">
+        <div className="flex justify-center items-center pt-4 px-2 gap-4">
+          <div className="block md:hidden" onClick={handleMenuDisplay}>
+            <RxHamburgerMenu size={40} color="gray" />
+          </div>
           <SearchBar {...{ handleChange }} />
         </div>
       </When>

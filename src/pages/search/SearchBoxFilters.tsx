@@ -90,14 +90,7 @@ const SearchBoxFilters = ({
                     <input
                       type="checkbox"
                       onChange={(e) => {
-                        console.log({
-                          selectedPriceRange,
-                          val: e.target.value,
-                        });
-
                         if (e.target.checked) {
-                          console.log("insdie if");
-
                           setSelectedPriceRange([
                             ...selectedPriceRange,
                             e.target.value,
