@@ -76,11 +76,14 @@ const Search: React.FC = () => {
       </div>
       <div className="flex items-start justify-center mt-8">
         <div
-          className={`w-4/5 md:w-1/5 p-4 fixed top-0 left-0 bg-gray-200 rounded-md md:bg-white md:relative z-10 min-h-full transform overflow-auto ease-in-out transition-all duration-300 ${
-            showMenu ? "translate-x-0" : "-translate-x-full"
+          className={`w-4/5 md:w-1/5 p-4 fixed top-0 left-0 bg-gray-200 rounded-md md:bg-white md:relative md:block z-10 min-h-full transform overflow-auto ease-in-out transition-all duration-300 ${
+            showMenu ? "translate-x-0" : "-translate-x-full md:translate-x-0"
           }`}
         >
-          <div className="flex justify-end" onClick={() => setShowMenu(false)}>
+          <div
+            className="flex justify-end md:hidden"
+            onClick={() => setShowMenu(false)}
+          >
             <RxCross2 size={30} />
           </div>
           <h1 className="text-3xl font-normal mb-10">Search Results</h1>
