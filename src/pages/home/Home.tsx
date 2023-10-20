@@ -4,7 +4,7 @@ import BgHome from "../../assets/images/bg-home.png";
 import Header from "../../components/Header";
 import SearchBar from "../../components/SearchBar";
 import When from "../../components/When";
-import { ITrends, getTrends } from "../../api/getData";
+import { ITrends, getTrends } from "../../helpers/getData";
 import TrendItem from "./TrendItem";
 import { suggestions } from "../../static/suggestions";
 

@@ -24,6 +24,7 @@ export const getTrends = (count: number) => {
 };
 
 export interface IProduct {
+  id: number;
   image: string;
   name: string;
   currencyPrefix: string;
@@ -39,6 +40,7 @@ export const getProducts = (count: number) => {
   const productData: IProduct[] = [];
 
   for (let i = 0; i < count; i++) {
+    const id: number = i + 1;
     const name: string = faker.commerce.productName();
     const image: string = `https://source.unsplash.com/random/300x400/?${encodeURIComponent(
       name
@@ -51,6 +53,7 @@ export const getProducts = (count: number) => {
     const brand: string = faker.company.name();
 
     productData.push({
+      id,
       image,
       name,
       originalPrice,

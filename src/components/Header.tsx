@@ -3,7 +3,13 @@ import When from "./When";
 import ZeviLogo from "../assets/icons/zevi-logo.png";
 import SearchBar from "./SearchBar";
 
-const Header = ({ showSearchBar }: { showSearchBar: boolean }) => {
+const Header = ({
+  showSearchBar,
+  handleChange,
+}: {
+  showSearchBar: boolean;
+  handleChange?: (value: string) => void;
+}) => {
   return (
     <>
       <div className="absolute right-14 top-6 hidden md:block">
@@ -11,7 +17,7 @@ const Header = ({ showSearchBar }: { showSearchBar: boolean }) => {
       </div>
       <When isTrue={showSearchBar}>
         <div className="flex justify-center pt-4 px-2">
-          <SearchBar />
+          <SearchBar {...{ handleChange }} />
         </div>
       </When>
     </>

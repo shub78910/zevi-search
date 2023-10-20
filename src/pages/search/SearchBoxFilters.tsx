@@ -9,6 +9,10 @@ const SearchBoxFilters = ({ brands }: { brands: string[] }) => {
   const [showPriceFilter, setShowPriceFilter] = useState(true);
   const [showRatingFilter, setShowRatingFilter] = useState(true);
 
+  const handleBrandChange = (brand: string) => {
+    console.log(brand);
+  };
+
   return (
     <div>
       <div className="mb-8">
@@ -24,7 +28,7 @@ const SearchBoxFilters = ({ brands }: { brands: string[] }) => {
                     <input
                       type="checkbox"
                       onChange={(e) => {
-                        console.log(e.target.value);
+                        handleBrandChange(e.target.value);
                       }}
                       value={brand}
                     />

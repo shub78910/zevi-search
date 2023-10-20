@@ -13,7 +13,7 @@ const FilterTemplate = ({
     <div>
       <div className="flex justify-between items-start">
         <h1 className="font-semibold text-lg text-gray-700 mb-5">{label}</h1>
-        <div onClick={handleClick}>
+        <div onClick={handleClick} className="cursor-pointer">
           <RiArrowDropDownLine size={30} />
         </div>
       </div>

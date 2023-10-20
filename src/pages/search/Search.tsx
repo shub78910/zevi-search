@@ -1,22 +1,25 @@
 import { useEffect, useState } from "react";
-import { IProduct, getProducts } from "../../api/getData";
+import { IProduct, getProducts } from "../../helpers/getData";
 import Header from "../../components/Header";
-import StarRating from "./StarsRating";
-import { BsHeart, BsHeartFill } from "react-icons/bs";
-import When from "../../components/When";
+
 import SearchBoxFilters from "./SearchBoxFilters";
+import Product from "./Product";
+import { filterBySearch } from "../../helpers/filterData";
+import { debounce } from "../../util/customDebounce";
 
 const Search: React.FC = () => {
   const [products, setProducts] = useState<IProduct[]>([]);
+  const [filteredProducts, setFilteredProducts] = useState<IProduct[]>([]);
   const [brands, setBrands] = useState<string[]>([]);
+  const [searchText, setSearchText] = useState<string>("");
 
   useEffect(() => {
-    // const res1 = getProducts(20);
-    // console.log(res1);
+    // const res1 =  getProducts(20);
 
     const brands = ["Adidas", "H&M"];
     const res = [
       {
+        id: 1,
         image:
           "https://source.unsplash.com/random/300x400/?Intelligent%20Bronze%20Pizza",
         name: "Intelligent Bronze Pizza",
@@ -29,6 +32,8 @@ const Search: React.FC = () => {
         brand: "Adidas",
       },
       {
+        id: 2,
+
         image:
           "https://source.unsplash.com/random/300x400/?Generic%20Concrete%20Sausages",
         name: "Generic Concrete Sausages",
@@ -41,6 +46,8 @@ const Search: React.FC = () => {
         brand: "H&M",
       },
       {
+        id: 3,
+
         image:
           "https://source.unsplash.com/random/300x400/?Bespoke%20Frozen%20Soap",
         name: "Bespoke Frozen Soap",
@@ -53,6 +60,8 @@ const Search: React.FC = () => {
         brand: "H&M",
       },
       {
+        id: 4,
+
         image:
           "https://source.unsplash.com/random/300x400/?Bespoke%20Frozen%20Soap",
         name: "Bespoke Frozen Soap",
@@ -65,15 +74,27 @@ const Search: React.FC = () => {
         brand: "H&M",
       },
     ];
-
     setProducts(res);
     setBrands(brands);
   }, []);
 
+  useEffect(() => {
+    if (searchText) {
+      const filteredResults = filterBySearch(products, searchText);
+      setFilteredProducts(filteredResults);
+    } else {
+      setFilteredProducts(products);
+    }
+  }, [searchText, products]);
+
+  const handleChange = debounce((value: string) => {
+    setSearchText(value);
+  }, 500);
+
   return (
     <>
       <div>
-        <Header showSearchBar={true} />
+        <Header {...{ showSearchBar: true, handleChange }} />
       </div>
       <div className="flex items-start mt-8">
         <div className="w-1/4 p-4 hidden md:block">
@@ -82,44 +103,8 @@ const Search: React.FC = () => {
         </div>
 
         <div className="w-3/4 p-4 flex flex-wrap justify-evenly">
-          {products.map((product, index) => (
-            <div key={index} className="w-auto p-4 relative">
-              <div className="cursor-pointer">
-                <img
-                  src={product.image}
-                  alt={`${product.name}`}
-                  height={200}
-                  width={200}
-                  loading="lazy"
-                />
-                <div className="absolute top-6 right-6">
-                  <When isTrue={!product.isLiked}>
-                    <BsHeart size={25} color="white" />
-                  </When>
-                  <When isTrue={product.isLiked}>
-                    <BsHeartFill size={25} color="red" />
-                  </When>
-                </div>
-              </div>
-              <h3 className="font-medium text-base mt-2">{product.name}</h3>
-              <div>
-                <span className="mr-2 text-gray-400 line-through">
-                  {product.currencyPrefix}
-                  {product.originalPrice}
-                </span>
-                <span className="text-blue-500 font-semibold">
-                  {product.currencyPrefix}
-                  {product.discountedPrice}
-                </span>
-              </div>
-
-              <div className="flex justify-start items-center gap-2">
-                <StarRating {...{ rating: product.rating }} />
-                <span className="text-gray-400 text-sm">
-                  ({product.noOfReviews})
-                </span>
-              </div>
-            </div>
+          {filteredProducts.map((product, index) => (
+            <Product {...{ product, index }} />
           ))}
         </div>
       </div>

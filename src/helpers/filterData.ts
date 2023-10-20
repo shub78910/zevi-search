@@ -1,4 +1,4 @@
-import { IProduct } from "../api/getData";
+import { IProduct } from "./getData";
 
 export const filterByBrand = (data: IProduct[], brand: string) => {
   return data.filter((product) => product.brand === brand);

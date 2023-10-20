@@ -1,4 +1,4 @@
-import { ITrends } from "../../api/getData";
+import { ITrends } from "../../helpers/getData";
 
 const TrendItem = ({ item }: { item: ITrends }) => {
   return (
