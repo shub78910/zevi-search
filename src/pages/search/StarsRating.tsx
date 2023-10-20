@@ -1,4 +1,4 @@
-import { RiStarSFill, RiStarSLine } from "react-icons/ri";
+import { RiStarSFill } from "react-icons/ri";
 
 const StarRating = ({ rating }: { rating: number }) => {
   const stars = Array(5)
@@ -8,7 +8,7 @@ const StarRating = ({ rating }: { rating: number }) => {
         {index < rating ? (
           <RiStarSFill size={20} style={{ color: "gold" }} />
         ) : (
-          <RiStarSLine size={20} style={{ color: "gold" }} />
+          <RiStarSFill size={20} style={{ color: "lightgrey" }} />
         )}
       </span>
     ));
