@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { ITrends } from "../../helpers/getData";
+import { ITrends } from "../../../helpers/getData";
 
 const TrendItem = ({ item }: { item: ITrends }) => {
   return (

@@ -2,8 +2,8 @@ import { useEffect, useState } from "react";
 import { IProduct, getProducts } from "../../helpers/getData";
 import Header from "../../components/Header";
 
-import SearchBoxFilters from "./SearchBoxFilters";
-import Product from "./Product";
+import SearchBoxFilters from "./components/SearchBoxFilters";
+import Product from "./components/Product";
 import {
   filterByBrand,
   filterByPrice,
@@ -24,7 +24,7 @@ const Search: React.FC = () => {
   const debounceDelay = 500;
 
   useEffect(() => {
-    const { productData, brands } = getProducts(20);
+    const { productData, brands } = getProducts(30);
     setProducts(productData);
     setBrands(brands);
   }, []);

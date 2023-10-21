@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
-import When from "../../components/When";
+import When from "../../../components/When";
 import StarRating from "./StarsRating";
-import { IPriceRange, priceRanges, ratings } from "../../static/filters";
+import { IPriceRange, priceRanges, ratings } from "../../../static/filters";
 import FilterTemplate from "./FilterTemplate";
 const SearchBoxFilters = ({
   brands,

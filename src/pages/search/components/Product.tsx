@@ -1,7 +1,7 @@
 import StarRating from "./StarsRating";
 import { BsHeart, BsHeartFill } from "react-icons/bs";
-import When from "../../components/When";
-import { IProduct } from "../../helpers/getData";
+import When from "../../../components/When";
+import { IProduct } from "../../../helpers/getData";
 import { useState } from "react";
 
 const Product = ({ product }: { product: IProduct }) => {
