@@ -22,18 +22,62 @@ const SearchBoxFilters = ({
   const [showPriceFilter, setShowPriceFilter] = useState<boolean>(true);
   const [showRatingFilter, setShowRatingFilter] = useState<boolean>(true);
 
-  const [selectedBrands, setSelectedBrands] = useState<string[]>([]);
-  const [selectedPriceRange, setSelectedPriceRange] = useState<string[]>([]);
-  const [selectedRating, setSelectedRating] = useState<string[]>([]);
+  const [selectedFilters, setSelectedFilters] = useState({
+    brands: [] as string[],
+    priceRange: [] as string[],
+    ratings: [] as string[],
+  });
 
   useEffect(() => {
+    const { brands, priceRange, ratings } = selectedFilters;
+
     handleFilterChange({
-      selectedBrands,
-      selectedPriceRange,
-      selectedRating,
+      selectedBrands: brands,
+      selectedPriceRange: priceRange,
+      selectedRating: ratings,
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selectedBrands, selectedPriceRange, selectedRating]);
+  }, [selectedFilters]);
+
+  const handleBrandChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const brand = e.target.value;
+    const isChecked = e.target.checked;
+
+    setSelectedFilters((prevFilters) => ({
+      ...prevFilters,
+      brands: isChecked
+        ? [...prevFilters.brands, brand]
+        : prevFilters.brands.filter((selectedBrand) => selectedBrand !== brand),
+    }));
+  };
+
+  const handlePriceChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const priceRange = e.target.value;
+    const isChecked = e.target.checked;
+
+    setSelectedFilters((prevFilters) => ({
+      ...prevFilters,
+      priceRange: isChecked
+        ? [...prevFilters.priceRange, priceRange]
+        : prevFilters.priceRange.filter(
+            (selectedPriceRange) => selectedPriceRange !== priceRange
+          ),
+    }));
+  };
+
+  const handleRatingChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const rating = e.target.value;
+    const isChecked = e.target.checked;
+
+    setSelectedFilters((prevFilters) => ({
+      ...prevFilters,
+      ratings: isChecked
+        ? [...prevFilters.ratings, rating]
+        : prevFilters.ratings.filter(
+            (selectedRating) => selectedRating !== rating
+          ),
+    }));
+  };
 
   return (
     <div>
@@ -49,20 +93,7 @@ const SearchBoxFilters = ({
                   <div className="flex items-center gap-2 mt-2">
                     <input
                       type="checkbox"
-                      onChange={(e) => {
-                        if (e.target.checked) {
-                          setSelectedBrands([
-                            ...selectedBrands,
-                            e.target.value,
-                          ]);
-                        } else {
-                          const index = selectedBrands.indexOf(e.target.value);
-                          if (index !== -1) {
-                            selectedBrands.splice(index, 1);
-                          }
-                          setSelectedBrands([...selectedBrands]);
-                        }
-                      }}
+                      onChange={(e) => handleBrandChange(e)}
                       value={brand}
                       className="w-4 h-4"
                     />
@@ -86,25 +117,10 @@ const SearchBoxFilters = ({
             <div>
               {priceRanges.map((priceRange: IPriceRange) => {
                 return (
-                  <div className="flex gap-2 mt-2">
+                  <div className="flex items-center gap-2 mt-2">
                     <input
                       type="checkbox"
-                      onChange={(e) => {
-                        if (e.target.checked) {
-                          setSelectedPriceRange([
-                            ...selectedPriceRange,
-                            e.target.value,
-                          ]);
-                        } else {
-                          const index = selectedPriceRange.indexOf(
-                            e.target.value
-                          );
-                          if (index !== -1) {
-                            selectedPriceRange.splice(index, 1);
-                          }
-                          setSelectedPriceRange([...selectedPriceRange]);
-                        }
-                      }}
+                      onChange={(e) => handlePriceChange(e)}
                       value={priceRange.value}
                       className="w-4 h-4"
                     />
@@ -127,20 +143,10 @@ const SearchBoxFilters = ({
           <When isTrue={showRatingFilter}>
             {ratings.map((rating: any) => {
               return (
-                <div className="flex gap-2 mt-2">
+                <div className="flex items-center gap-2 mt-2">
                   <input
                     type="checkbox"
-                    onChange={(e) => {
-                      if (e.target.checked) {
-                        setSelectedRating([...selectedRating, e.target.value]);
-                      } else {
-                        const index = selectedRating.indexOf(e.target.value);
-                        if (index !== -1) {
-                          selectedRating.splice(index, 1);
-                        }
-                        setSelectedRating([...selectedRating]);
-                      }
-                    }}
+                    onChange={(e) => handleRatingChange(e)}
                     value={rating}
                     className="w-4 h-4"
                   />

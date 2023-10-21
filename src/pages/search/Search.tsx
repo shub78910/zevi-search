@@ -72,9 +72,7 @@ const Search: React.FC = () => {
 
   return (
     <>
-      <div>
-        <Header {...{ showSearchBar: true, handleChange, handleMenuDisplay }} />
-      </div>
+      <Header {...{ showSearchBar: true, handleChange, handleMenuDisplay }} />
       <div className="flex items-start justify-center mt-8">
         <div
           className={`w-4/5 md:w-1/5 p-4 fixed top-0 left-0 bg-slate-50 rounded-md md:bg-white md:relative md:block z-10 min-h-full transform overflow-auto ease-in-out transition-all duration-300 ${
@@ -94,11 +92,11 @@ const Search: React.FC = () => {
           />
         </div>
 
-        <div className="w-4/5 flex flex-wrap justify-evenly">
-          {filteredProducts.map((product, index) => (
-            <Product {...{ product, index }} />
+        <main className="w-4/5 flex flex-wrap justify-evenly">
+          {filteredProducts?.map((product) => (
+            <Product {...{ product }} key={product.id} />
           ))}
-        </div>
+        </main>
       </div>
     </>
   );

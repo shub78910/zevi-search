@@ -4,12 +4,12 @@ import When from "../../components/When";
 import { IProduct } from "../../helpers/getData";
 import { useState } from "react";
 
-const Product = ({ index, product }: { index: number; product: IProduct }) => {
+const Product = ({ product }: { product: IProduct }) => {
   const [liked, setLiked] = useState<boolean>(false);
   const [showProductLabel, setShowProductLabel] = useState<boolean>(false);
 
   return (
-    <div key={index} className="w-auto p-4 relative">
+    <div key={product.id} className="w-auto p-4 relative">
       <div
         className="cursor-pointer"
         onMouseOut={() => setShowProductLabel(false)}
@@ -23,9 +23,9 @@ const Product = ({ index, product }: { index: number; product: IProduct }) => {
           loading="lazy"
         />
         <When isTrue={showProductLabel}>
-          <div className="absolute bottom-20 text-white bg-blue-600 opacity-60 text-center text-xl w-52 py-2 px-4 mb-3">
+          <label className="absolute bottom-20 text-white bg-blue-600 opacity-60 text-center text-xl w-52 py-2 px-4 mb-3">
             View Product
-          </div>
+          </label>
         </When>
         <div
           className="absolute top-6 right-6"
