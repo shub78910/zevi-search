@@ -4,7 +4,7 @@ import { ITrends } from "../../helpers/getData";
 const TrendItem = ({ item }: { item: ITrends }) => {
   return (
     <Link to="/search">
-      <div className="m-1">
+      <div className="m-1 w-full">
         <img
           src={item.image}
           alt={`${item.description}`}

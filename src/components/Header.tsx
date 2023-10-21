@@ -14,19 +14,19 @@ const Header = ({
   handleMenuDisplay?: () => void;
 }) => {
   return (
-    <>
+    <header>
       <div className="absolute right-14 top-6 hidden md:block">
         <img src={ZeviLogo} alt="zevi-logo" width={70} height={70} />
       </div>
       <When isTrue={showSearchBar}>
         <div className="flex justify-center items-center pt-4 px-2 gap-4">
-          <div className="block md:hidden" onClick={handleMenuDisplay}>
+          <menu className="block md:hidden" onClick={handleMenuDisplay}>
             <RxHamburgerMenu size={40} color="gray" />
-          </div>
+          </menu>
           <SearchBar {...{ handleChange }} />
         </div>
       </When>
-    </>
+    </header>
   );
 };
 

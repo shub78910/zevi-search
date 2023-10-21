@@ -12,10 +12,10 @@ import { Link } from "react-router-dom";
 const Home: React.FC = () => {
   const [showTrends, setShowTrends] = useState(false);
   const [trends, setTrends] = useState<ITrends[]>([]);
+  const trendCount = 5;
 
   useEffect(() => {
-    const res = getTrends(5);
-
+    const res = getTrends(trendCount);
     setTrends(res);
   }, []);
 
@@ -32,7 +32,7 @@ const Home: React.FC = () => {
         <div className="flex flex-col items-center justify-center p-2">
           <div className=" bg-white w-full md:w-3/5 rounded-lg h-fit mt-4 p-2 px-8 shadow-sm shadow-black">
             <h1 className="text-xl font-medium p-2 mb-2">Latest trends</h1>
-            <div className="flex flex-wrap justify-around">
+            <div className="flex justify-around flex-wrap">
               {trends.map((item) => {
                 return <TrendItem {...{ item }} />;
               })}
@@ -47,7 +47,10 @@ const Home: React.FC = () => {
                 {suggestions.map((suggestion: string) => {
                   return (
                     <Link to="/search">
-                      <li className="text-sm text-gray-600 mb-2 cursor-pointer">
+                      <li
+                        className="text-sm text-gray-800 mb-2 font-semibold cursor-pointer"
+                        aria-label="trending items"
+                      >
                         {suggestion}
                       </li>
                     </Link>

@@ -21,6 +21,8 @@ const Search: React.FC = () => {
 
   const [showMenu, setShowMenu] = useState<boolean>(false);
 
+  const debounceDelay = 500;
+
   useEffect(() => {
     const { productData, brands } = getProducts(20);
     setProducts(productData);
@@ -38,7 +40,7 @@ const Search: React.FC = () => {
 
   const handleChange = debounce((value: string) => {
     setSearchText(value);
-  }, 500);
+  }, debounceDelay);
 
   const handleFilterChange = ({
     selectedBrands,
@@ -65,7 +67,6 @@ const Search: React.FC = () => {
   };
 
   const handleMenuDisplay = () => {
-    console.log("Menu clicked");
     setShowMenu(!showMenu);
   };
 
@@ -76,7 +77,7 @@ const Search: React.FC = () => {
       </div>
       <div className="flex items-start justify-center mt-8">
         <div
-          className={`w-4/5 md:w-1/5 p-4 fixed top-0 left-0 bg-gray-200 rounded-md md:bg-white md:relative md:block z-10 min-h-full transform overflow-auto ease-in-out transition-all duration-300 ${
+          className={`w-4/5 md:w-1/5 p-4 fixed top-0 left-0 bg-slate-50 rounded-md md:bg-white md:relative md:block z-10 min-h-full transform overflow-auto ease-in-out transition-all duration-300 ${
             showMenu ? "translate-x-0" : "-translate-x-full md:translate-x-0"
           }`}
         >

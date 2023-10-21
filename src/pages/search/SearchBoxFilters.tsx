@@ -3,7 +3,6 @@ import When from "../../components/When";
 import StarRating from "./StarsRating";
 import { IPriceRange, priceRanges, ratings } from "../../static/filters";
 import FilterTemplate from "./FilterTemplate";
-
 const SearchBoxFilters = ({
   brands,
   handleFilterChange,
@@ -47,7 +46,7 @@ const SearchBoxFilters = ({
             <div>
               {brands.map((brand: string) => {
                 return (
-                  <div className="flex gap-2">
+                  <div className="flex items-center gap-2 mt-2">
                     <input
                       type="checkbox"
                       onChange={(e) => {
@@ -65,6 +64,7 @@ const SearchBoxFilters = ({
                         }
                       }}
                       value={brand}
+                      className="w-4 h-4"
                     />
                     <label className="text-base text-gray-700 font-normal">
                       {brand}
@@ -86,7 +86,7 @@ const SearchBoxFilters = ({
             <div>
               {priceRanges.map((priceRange: IPriceRange) => {
                 return (
-                  <div className="flex gap-2">
+                  <div className="flex gap-2 mt-2">
                     <input
                       type="checkbox"
                       onChange={(e) => {
@@ -106,6 +106,7 @@ const SearchBoxFilters = ({
                         }
                       }}
                       value={priceRange.value}
+                      className="w-4 h-4"
                     />
                     <label className="text-base text-gray-700 font-normal">
                       {priceRange.label}
@@ -141,6 +142,7 @@ const SearchBoxFilters = ({
                       }
                     }}
                     value={rating}
+                    className="w-4 h-4"
                   />
                   <label className="text-base text-gray-700 font-normal">
                     <StarRating rating={rating} />
